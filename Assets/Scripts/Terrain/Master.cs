@@ -33,11 +33,16 @@ namespace Assets.Scripts.Terrain {
             SetupUI();
 
             Info.MATERIAL = (Material) Resources.Load("TerrainMaterial");
-            Info.TEXTURE_GRASS = (Texture2D) Resources.Load("Textures/Grass");
-            Info.TEXTURE_EARTH = (Texture2D) Resources.Load("Textures/Earth");
-            Info.TEXTURE_ROCK = (Texture2D) Resources.Load("Textures/Rock");
-            Info.TEXTURE_SAND = (Texture2D) Resources.Load("Textures/Sand");
-            Info.TEXTURE_DIRT = (Texture2D) Resources.Load("Textures/Dirt");
+            Info.TEXTURE_GRASS = (Texture2D) Resources.Load("Textures/grass");
+            Info.TEXTURE_EARTH = (Texture2D) Resources.Load("Textures/earth");
+            Info.TEXTURE_ROCK = (Texture2D) Resources.Load("Textures/rock");
+            Info.TEXTURE_SAND = (Texture2D) Resources.Load("Textures/sand");
+            Info.TEXTURE_DIRT = (Texture2D) Resources.Load("Textures/dirt");
+            Info.TEXTURE_GRASS_NORMAL = (Texture2D) Resources.Load("Textures/grass_normal");
+            Info.TEXTURE_EARTH_NORMAL = (Texture2D) Resources.Load("Textures/earth_normal");
+            Info.TEXTURE_ROCK_NORMAL = (Texture2D) Resources.Load("Textures/rock_normal");
+            Info.TEXTURE_SAND_NORMAL = (Texture2D) Resources.Load("Textures/sand_normal");
+            Info.TEXTURE_DIRT_NORMAL = (Texture2D) Resources.Load("Textures/dirt_normal");
             Info.GRASS_1 = (Texture2D) Resources.Load("Grass/Grass1");
             Info.GRASS_2 = (Texture2D) Resources.Load("Grass/Grass2");
             Info.GRASS_3 = (Texture2D) Resources.Load("Grass/Grass3");
@@ -45,11 +50,11 @@ namespace Assets.Scripts.Terrain {
             Info.TREE_OAK = (GameObject) Resources.Load("Trees/Broadleaf_Desktop");
             Info.TREE_PINE = (GameObject) Resources.Load("Trees/Conifer_Desktop");
             Info.TEXTURE_PROTOTYPES = new SplatPrototype[] {
-                new SplatPrototype() { texture = Info.TEXTURE_GRASS },
-                new SplatPrototype() { texture = Info.TEXTURE_EARTH },
-                new SplatPrototype() { texture = Info.TEXTURE_ROCK },
-                new SplatPrototype() { texture = Info.TEXTURE_SAND },
-                new SplatPrototype() { texture = Info.TEXTURE_DIRT }
+                new SplatPrototype() { texture = Info.TEXTURE_GRASS, normalMap = Info.TEXTURE_GRASS_NORMAL },
+                new SplatPrototype() { texture = Info.TEXTURE_EARTH, normalMap = Info.TEXTURE_EARTH_NORMAL },
+                new SplatPrototype() { texture = Info.TEXTURE_ROCK, normalMap = Info.TEXTURE_ROCK_NORMAL, tileSize = new Vector2(40, 40) },
+                new SplatPrototype() { texture = Info.TEXTURE_SAND, normalMap = Info.TEXTURE_SAND_NORMAL, tileSize = new Vector2(20, 20) },
+                new SplatPrototype() { texture = Info.TEXTURE_DIRT, normalMap = Info.TEXTURE_DIRT_NORMAL }
             };
             Info.DETAIL_PROTOTYPES = new DetailPrototype[] {
                 new DetailPrototype() {
@@ -223,7 +228,7 @@ namespace Assets.Scripts.Terrain {
             parameters = parameters.Length == 0 ? new object[2] { Info.TOTAL_TILES, Info.TOTAL_TILES } : parameters;
             string text = GetFormattedString(index, parameters);
             loadingText.text = text;
-            
+
             loadingTextLeft.text = index > 0 ? GetFormattedString(index - 1, new object[2] { Info.TOTAL_TILES, Info.TOTAL_TILES }) : "";
             loadingTextRight.text = index < Info.LOADING_TEXTS.Length - 1 ? GetFormattedString(index + 1, new object[2] { 0, Info.TOTAL_TILES }) : "";
 
@@ -248,6 +253,7 @@ namespace Assets.Scripts.Terrain {
             loadingTextLeft = GameObject.Find("LoadingTextLeft").GetComponent<Text>();
             loadingTextRight = GameObject.Find("LoadingTextRight").GetComponent<Text>();
 
+            GameObject.Find("seedManual").GetComponent<InputField>().characterValidation = InputField.CharacterValidation.Integer;
             GameObject.Find("tiles").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("tilesText").GetComponent<Text>().text = string.Format("Tiles: {0}", (int) GameObject.Find("tiles").GetComponent<Slider>().value); });
             GameObject.Find("noiseFrequency").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("noiseFrequencyText").GetComponent<Text>().text = string.Format("Noise Freqency Mutliplier: {0}", (int) GameObject.Find("noiseFrequency").GetComponent<Slider>().value); });
             GameObject.Find("noiseOctaves").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("noiseOctavesText").GetComponent<Text>().text = string.Format("Noise Octaves: {0}", (int) GameObject.Find("noiseOctaves").GetComponent<Slider>().value); });
@@ -255,7 +261,6 @@ namespace Assets.Scripts.Terrain {
             GameObject.Find("thermalIterations").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("thermalIterationsText").GetComponent<Text>().text = string.Format("Thermal Erosion Iterations: {0}", (int) GameObject.Find("thermalIterations").GetComponent<Slider>().value); });
             GameObject.Find("hydraulicStrength").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("hydraulicStrengthText").GetComponent<Text>().text = string.Format("Hydraulic Erosion Strength: {0}", Math.Round(GameObject.Find("hydraulicStrength").GetComponent<Slider>().value, 1)); });
             GameObject.Find("hydraulicIterations").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("hydraulicIterationsText").GetComponent<Text>().text = string.Format("Hydraulic Erosion Iterations: {0}", (int) GameObject.Find("hydraulicIterations").GetComponent<Slider>().value); });
-            GameObject.Find("seedManual").GetComponent<InputField>().characterValidation = InputField.CharacterValidation.Integer;
         }
 
         public void ValidateSeedInput() {
@@ -290,6 +295,8 @@ namespace Assets.Scripts.Terrain {
             Info.EROSION_HYDRAULIC_STRENGTH = Convert.ToSingle(Math.Round(GameObject.Find("hydraulicStrength").GetComponent<Slider>().value, 1));
             Info.EROSION_HYDRAULIC_ITERATIONS = (int) GameObject.Find("hydraulicIterations").GetComponent<Slider>().value;
             Info.SIMS_TEXTS = GameObject.Find("simsText").GetComponent<Toggle>().isOn;
+            Info.LOG_LEVEL = (LogLevel) GameObject.Find("logLevel").GetComponent<Dropdown>().value;
+            Info.LOG_VERBOSITY = GameObject.Find("logVerbosity").GetComponent<Dropdown>().value;
         }
 
         public void Exit() {

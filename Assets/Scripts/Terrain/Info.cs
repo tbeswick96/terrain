@@ -10,8 +10,6 @@ namespace Assets.Scripts.Terrain {
 
         //Logging
         public static ThreadedLogger log;
-        public static LogLevel LOG_LEVEL = LogLevel.DEBUG;
-        public static int LOG_VERBOSITY = 1;
 
         //Generation
         public static System.Random RANDOM;
@@ -24,10 +22,15 @@ namespace Assets.Scripts.Terrain {
         //Terrain assets
         public static Material MATERIAL;
         public static Texture2D TEXTURE_GRASS;
+        public static Texture2D TEXTURE_GRASS_NORMAL;
         public static Texture2D TEXTURE_EARTH;
+        public static Texture2D TEXTURE_EARTH_NORMAL;
         public static Texture2D TEXTURE_ROCK;
+        public static Texture2D TEXTURE_ROCK_NORMAL;
         public static Texture2D TEXTURE_SAND;
+        public static Texture2D TEXTURE_SAND_NORMAL;
         public static Texture2D TEXTURE_DIRT;
+        public static Texture2D TEXTURE_DIRT_NORMAL;
         public static Texture2D GRASS_1;
         public static Texture2D GRASS_2;
         public static Texture2D GRASS_3;
@@ -55,7 +58,7 @@ namespace Assets.Scripts.Terrain {
         //Settings
         public static int TILES = 5; //Controls number of terrain tiles.
         public static int SEED = 0; //Controls seed value used for random and noise calculations.
-        public static bool SEED_RANDOMISE = false; //Controls whether the seed is randomised each time generation is run.
+        public static bool SEED_RANDOMISE = true; //Controls whether the seed is randomised each time generation is run.
         public static bool ISLAND_ROUND = true; //Controls whether the island created is round or square.
         public static int NOISE_FREQUENCY_MULTIPLIER = 1; //Controls the frequency of the noise set.
         public static int NOISE_OCTAVES = 8; //Controls how many octaves are used in the noise.
@@ -64,5 +67,7 @@ namespace Assets.Scripts.Terrain {
         public static float EROSION_HYDRAULIC_STRENGTH = 1; //Controls how strong the hydraulic erosion is.
         public static int EROSION_HYDRAULIC_ITERATIONS = 25; //Controls how many iterations of hydraulic erosion are performed.
         public static bool SIMS_TEXTS = false; //Controls whether Sims-like loading texts are used. (Sims games by EA Maxis use comedic loading texts. See 'loading messages' https://www.gamefaqs.com/pc/561176-simcity-4/faqs/22135 )
+        public static LogLevel LOG_LEVEL = LogLevel.ERROR;
+        public static int LOG_VERBOSITY = 0;
     }
 }

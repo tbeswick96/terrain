@@ -72,10 +72,10 @@ namespace Assets.Scripts.Terrain {
                     float steepnessNormalized = Mathf.Clamp01(steepness * 2);
 
                     float[] splatWeights = new float[terrainData.alphamapLayers];
-                    splatWeights[0] = 1f - steepnessNormalized;
+                    splatWeights[0] = height > 0.06f ? 1f - steepnessNormalized : 0f;
                     splatWeights[1] = 1f - ((world.worldMap[x + offsetX, y + offsetY].worldPoint.waterAmount) * 10);
                     splatWeights[2] = steepnessNormalized;
-                    splatWeights[3] = height < 0.065f ? 1f - height : 0f;
+                    splatWeights[3] = height < 0.065f ? 1f : 0f;
                     splatWeights[4] = world.worldMap[x + offsetX, y + offsetY].worldPoint.isRiver ? 0.8f : 0f;
                     float weightSum = splatWeights.Sum();
                     for (int index = 0; index < terrainData.alphamapLayers; index++) {
@@ -142,7 +142,7 @@ namespace Assets.Scripts.Terrain {
                     float steepness = terrainData.GetSteepness(normalizedX, normalizedY);
                     float steepnessChance = 1f - Mathf.Clamp01(steepness / 20);
                     float riverChance = world.worldMap[x + offsetX, y + offsetY].worldPoint.isRiver ? 0f : 1f;
-                    if ((heightChance * riverChance * steepnessChance) > 0.1f && Info.RANDOM.Next(0, 20) > 15) {
+                    if ((heightChance * riverChance * steepnessChance) > 0.1f && Info.RANDOM.Next(0, 20) > Info.TILES) {
                         int index = Mathf.FloorToInt((height * 10) % 2);
                         float heightScale = index == 0 ? Info.RANDOM.Next(8, 10) / 10f : Info.RANDOM.Next(15, 20) / 10f;
                         terrain.AddTreeInstance(new TreeInstance() {

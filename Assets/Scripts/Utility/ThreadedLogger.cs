@@ -10,8 +10,8 @@ namespace Assets.Scripts.Utility {
      */
     public enum LogLevel {
         INFO,
-        DEBUG,
-        ERROR
+        ERROR,
+        DEBUG
     }
 
     /*
