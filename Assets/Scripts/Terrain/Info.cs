@@ -66,6 +66,7 @@ namespace Assets.Scripts.Terrain {
         public static int EROSION_THERMAL_ITERATIONS = 50; //Controls how many iterations of inverse thermal erosion are performed.
         public static float EROSION_HYDRAULIC_STRENGTH = 1; //Controls how strong the hydraulic erosion is.
         public static int EROSION_HYDRAULIC_ITERATIONS = 25; //Controls how many iterations of hydraulic erosion are performed.
+        public static bool DRAW_DETAILS = true; //Controls whether terrain details (grass and trees) are drawn.
         public static bool SIMS_TEXTS = false; //Controls whether Sims-like loading texts are used. (Sims games by EA Maxis use comedic loading texts. See 'loading messages' https://www.gamefaqs.com/pc/561176-simcity-4/faqs/22135 )
         public static LogLevel LOG_LEVEL = LogLevel.ERROR;
         public static int LOG_VERBOSITY = 0;

@@ -202,13 +202,15 @@ namespace Assets.Scripts.Terrain {
                 }
             }
 
+            ToggleDrawDetails(Info.DRAW_DETAILS);
+
             StartCoroutine(Finish());
         }
 
         //Once all of the terrains have been created, finish up and give control of the camera back to the player.
         private IEnumerator Finish() {
             SetLoadingText(9);
-            SkyMasterManager.instance.SPEED = 0.5f;
+            SkyMasterManager.instance.SPEED = 1.5f;
             camera.GetComponent<CameraMovement>().enabled = true;
             cornerPanel.SetActive(true);
 
@@ -261,6 +263,7 @@ namespace Assets.Scripts.Terrain {
             GameObject.Find("thermalIterations").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("thermalIterationsText").GetComponent<Text>().text = string.Format("Thermal Erosion Iterations: {0}", (int) GameObject.Find("thermalIterations").GetComponent<Slider>().value); });
             GameObject.Find("hydraulicStrength").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("hydraulicStrengthText").GetComponent<Text>().text = string.Format("Hydraulic Erosion Strength: {0}", Math.Round(GameObject.Find("hydraulicStrength").GetComponent<Slider>().value, 1)); });
             GameObject.Find("hydraulicIterations").GetComponent<Slider>().onValueChanged.AddListener(delegate { GameObject.Find("hydraulicIterationsText").GetComponent<Text>().text = string.Format("Hydraulic Erosion Iterations: {0}", (int) GameObject.Find("hydraulicIterations").GetComponent<Slider>().value); });
+            GameObject.Find("drawDetails").GetComponent<Toggle>().onValueChanged.AddListener(delegate { ToggleDrawDetails(GameObject.Find("drawDetails").GetComponent<Toggle>().isOn); });
         }
 
         public void ValidateSeedInput() {
@@ -283,6 +286,12 @@ namespace Assets.Scripts.Terrain {
             }
         }
 
+        private void ToggleDrawDetails(bool draw) {
+            foreach(GameObject terrain in terrains) {
+                terrain.GetComponent<UnityEngine.Terrain>().drawTreesAndFoliage = draw;
+            }
+        }
+
         //Read and stored the values from the UI elements for the settings.
         private void ReadSettings() {
             Info.TILES = (int) GameObject.Find("tiles").GetComponent<Slider>().value;
@@ -294,6 +303,7 @@ namespace Assets.Scripts.Terrain {
             Info.EROSION_THERMAL_ITERATIONS = (int) GameObject.Find("thermalIterations").GetComponent<Slider>().value;
             Info.EROSION_HYDRAULIC_STRENGTH = Convert.ToSingle(Math.Round(GameObject.Find("hydraulicStrength").GetComponent<Slider>().value, 1));
             Info.EROSION_HYDRAULIC_ITERATIONS = (int) GameObject.Find("hydraulicIterations").GetComponent<Slider>().value;
+            Info.DRAW_DETAILS = GameObject.Find("drawDetails").GetComponent<Toggle>().isOn;
             Info.SIMS_TEXTS = GameObject.Find("simsText").GetComponent<Toggle>().isOn;
             Info.LOG_LEVEL = (LogLevel) GameObject.Find("logLevel").GetComponent<Dropdown>().value;
             Info.LOG_VERBOSITY = GameObject.Find("logVerbosity").GetComponent<Dropdown>().value;

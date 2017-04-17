@@ -142,7 +142,7 @@ namespace Assets.Scripts.Terrain {
                     float steepness = terrainData.GetSteepness(normalizedX, normalizedY);
                     float steepnessChance = 1f - Mathf.Clamp01(steepness / 20);
                     float riverChance = world.worldMap[x + offsetX, y + offsetY].worldPoint.isRiver ? 0f : 1f;
-                    if ((heightChance * riverChance * steepnessChance) > 0.1f && Info.RANDOM.Next(0, 20) > Info.TILES) {
+                    if ((heightChance * riverChance * steepnessChance) > 0.1f && Info.RANDOM.Next(0, 20) > (Info.TILES + 4)) {
                         int index = Mathf.FloorToInt((height * 10) % 2);
                         float heightScale = index == 0 ? Info.RANDOM.Next(8, 10) / 10f : Info.RANDOM.Next(15, 20) / 10f;
                         terrain.AddTreeInstance(new TreeInstance() {

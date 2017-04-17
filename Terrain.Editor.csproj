@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{745BC003-0A80-627C-C22E-87CD9C462B4E}</ProjectGuid>
+    <ProjectGuid>{69F8CFF2-9BC5-2070-6106-AB8B6EA201A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -93,13 +93,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Terrain.Plugins.csproj">
-      <Project>{700C3137-5A67-43F7-7BCE-B8471EA29BA3}</Project>
-      <Name>Terrain.Plugins</Name>
+    <ProjectReference Include="terrain.Plugins.csproj">
+      <Project>{03175CE6-FE8D-B25F-A417-871259818818}</Project>
+      <Name>terrain.Plugins</Name>
     </ProjectReference>
-    <ProjectReference Include="Terrain.csproj">
-      <Project>{DFD176CA-C7FE-0C7C-0D43-998E56543246}</Project>
-      <Name>Terrain</Name>
+    <ProjectReference Include="terrain.csproj">
+      <Project>{46703433-06DA-2D79-7C6A-5636EEFF4896}</Project>
+      <Name>terrain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
