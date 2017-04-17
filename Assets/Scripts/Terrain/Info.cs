@@ -56,7 +56,7 @@ namespace Assets.Scripts.Terrain {
         };
 
         //Settings
-        public static int TILES = 15; //Controls number of terrain tiles.
+        public static int TILES = 5; //Controls number of terrain tiles.
         public static int SEED = 0; //Controls seed value used for random and noise calculations.
         public static bool SEED_RANDOMISE = true; //Controls whether the seed is randomised each time generation is run.
         public static bool ISLAND_ROUND = true; //Controls whether the island created is round or square.
