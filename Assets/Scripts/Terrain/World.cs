@@ -69,13 +69,13 @@ namespace Assets.Scripts.Terrain {
                     float height = worldMap[y, x].worldPoint.z;
                     int distance = GetDistance(worldMap[y, x], worldMap[yCentre, xCentre]);
                     if (higher) {
-                        //Info.log.Send(string.Format("Testing height {0} > {1} = {2}", height, highestPoint.worldPoint.z, height > highestPoint.worldPoint.z), 2);
+                        Info.log.Send(string.Format("Testing height {0} > {1} = {2}", height, highestPoint.worldPoint.z, height > highestPoint.worldPoint.z), 1);
                         if (height > minHeight && height < maxHeight && height > bestPoint.worldPoint.z && distance < bestDistance) {
                             bestPoint = worldMap[y, x];
                             bestDistance = distance;
                         }
                     } else {
-                        //Info.log.Send(string.Format("Testing height {0} < {1} = {2}", height, lowestPoint.worldPoint.z, height < lowestPoint.worldPoint.z), 2);
+                        Info.log.Send(string.Format("Testing height {0} < {1} = {2}", height, lowestPoint.worldPoint.z, height < lowestPoint.worldPoint.z), 1);
                         if (height > minHeight && height < maxHeight && height < bestPoint.worldPoint.z && distance < bestDistance) {
                             bestPoint = worldMap[y, x];
                             bestDistance = distance;
@@ -95,14 +95,14 @@ namespace Assets.Scripts.Terrain {
         //If the node is an edge/corner node, we need to check if the surrounding node we are looking for is a valid array index. (0 - 1 = -1, which is not a valid array index)
         public List<Node> GetSurroundingNodes(Node node) {
             WorldPoint point = node.worldPoint;
-            //Info.log.Send(string.Format("Getting surrounding points for point [x:{0}, y:{1}], height = {2}", point.x, point.y, point.z), 2);
+            Info.log.Send(string.Format("Getting surrounding points for point [x:{0}, y:{1}], height = {2}", point.x, point.y, point.z), 1);
             List<Node> nodes = new List<Node>();
             for (int y = -1; y < 2; y++) {
                 for (int x = -1; x < 2; x++) {
-                    //Info.log.Send(string.Format("Checking for point at [x:{0}, y:{1}], null = {2}", point.x + x, point.y + y, (worldMap[point.y + y, point.x + x] == null).ToString()), 2);
+                    Info.log.Send(string.Format("Checking for point at [x:{0}, y:{1}], null = {2}", point.x + x, point.y + y, (worldMap[point.y + y, point.x + x] == null).ToString()), 1);
                     if (point.y + y >= 0 && point.y + y < worldSize && point.x + x >= 0 && point.x + x < worldSize) {
                         nodes.Add(worldMap[point.y + y, point.x + x]);
-                        //Info.log.Send(string.Format("Found point [x:{0}, y:{1}], height = {2}", worldMap[point.y + y, point.x + x].worldPoint.x, worldMap[point.y + y, point.x + x].worldPoint.y, worldMap[point.y + y, point.x + x].worldPoint.z), 2);
+                        Info.log.Send(string.Format("Found point [x:{0}, y:{1}], height = {2}", worldMap[point.y + y, point.x + x].worldPoint.x, worldMap[point.y + y, point.x + x].worldPoint.y, worldMap[point.y + y, point.x + x].worldPoint.z), 1);
                     }
                 }
             }

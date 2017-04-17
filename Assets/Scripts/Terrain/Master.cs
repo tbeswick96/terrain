@@ -203,7 +203,6 @@ namespace Assets.Scripts.Terrain {
             }
 
             ToggleDrawDetails(Info.DRAW_DETAILS);
-
             StartCoroutine(Finish());
         }
 

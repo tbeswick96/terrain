@@ -11,7 +11,7 @@ namespace Assets.Scripts.Terrain.Pathing {
     }
 
     /*
-     * Heap object. Used for a-star pathfinding for rivers. Generic implementation based on multiple widely available variants of Heap data structures.
+     * Heap object. Used for a-star pathfinding for rivers. Generic implementation with theory from multiple widely available variants of Heap data structures.
      */
     class Heap<T> where T: IHeapItem<T> {
         T[] items;

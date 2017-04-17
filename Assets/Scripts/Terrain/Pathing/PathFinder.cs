@@ -25,7 +25,7 @@ namespace Assets.Scripts.Terrain.Pathing {
                     //Heuristic cost based on the current node's stored cost, the distance to the neighbour node (from the current node), and the inverted difference in height between the current node and the neighbour node.
                     float newCostToNeighbor = currentNode.gCost + world.GetDistance(currentNode, neighbor) + (1f - (currentNode.worldPoint.z - neighbor.worldPoint.z));
                     if (newCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor)) {
-                        //Info.log.Send(string.Format("New lowest cost: {0}", newCostToNeighbor), 2);
+                        Info.log.Send(string.Format("New lowest cost: {0}", newCostToNeighbor), 1);
                         neighbor.gCost = newCostToNeighbor;
                         //Cost based on distance from neighbour node to end node, with a scaled multiplier based on a random value and the inverted z value (height) of the neighbour node.
                         //This results in an increasing displacement of the path the lower the z value is. The creates meanders at lower altitudes.
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Terrain.Pathing {
                         neighbor.parent = currentNode;
                         currentNode.child = neighbor;
                         if (!openSet.Contains(neighbor)) {
-                            //Info.log.Send(string.Format("Adding node [x: {0}, y: {1}] to open set. Parent node [x: {2}, y: {3}]", neighbor.worldPoint.x, neighbor.worldPoint.y, neighbor.parent.worldPoint.x, neighbor.parent.worldPoint.y), 2);
+                            Info.log.Send(string.Format("Adding node [x: {0}, y: {1}] to open set. Parent node [x: {2}, y: {3}]", neighbor.worldPoint.x, neighbor.worldPoint.y, neighbor.parent.worldPoint.x, neighbor.parent.worldPoint.y), 1);
                             openSet.AddItem(neighbor);
                         } else {
                             openSet.UpdateItem(neighbor);

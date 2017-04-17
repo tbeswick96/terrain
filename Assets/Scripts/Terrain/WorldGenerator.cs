@@ -115,12 +115,12 @@ namespace Assets.Scripts.Terrain {
                     WorldPoint point = currentNode.worldPoint;
                     int radius = (int) ((1 - point.z) * 10) / 2;
                     float depth = (point.z / 50f);
-                    //Info.log.Send(string.Format("[x:{0}, y:{1}] radius = {2}, depth = {3}", point.x, point.y, radius, depth), 1);
+                    Info.log.Send(string.Format("[x:{0}, y:{1}] radius = {2}, depth = {3}", point.x, point.y, radius, depth), 1);
                     for (int y = -radius; y < radius; y++) {
                         for (int x = -radius; x < radius; x++) {
                             if (point.y + y >= 0 && point.y + y < world.worldSize && point.x + x >= 0 && point.x + x < world.worldSize) {
                                 if (!world.worldMap[point.y + y, point.x + x].worldPoint.isRiver) {
-                                    //Info.log.Send(string.Format("Carving [x:{0}, y:{1}].worldPoint.z {2} by {3}", x, y, world.worldMap[point.y + y, point.x + x].worldPoint.z, depth), 1);
+                                    Info.log.Send(string.Format("Carving [x:{0}, y:{1}].worldPoint.z {2} by {3}", x, y, world.worldMap[point.y + y, point.x + x].worldPoint.z, depth), 1);
                                     if (world.worldMap[point.y + y, point.x + x].worldPoint.z > 0.05f) {
                                         if (world.worldMap[point.y + y, point.x + x].worldPoint.z >= currentMinHeight) {
                                             world.worldMap[point.y + y, point.x + x].worldPoint.z = currentMinHeight;

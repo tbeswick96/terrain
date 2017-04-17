@@ -68,7 +68,7 @@ namespace Assets.Scripts.Terrain {
         public static int EROSION_HYDRAULIC_ITERATIONS = 25; //Controls how many iterations of hydraulic erosion are performed.
         public static bool DRAW_DETAILS = true; //Controls whether terrain details (grass and trees) are drawn.
         public static bool SIMS_TEXTS = false; //Controls whether Sims-like loading texts are used. (Sims games by EA Maxis use comedic loading texts. See 'loading messages' https://www.gamefaqs.com/pc/561176-simcity-4/faqs/22135 )
-        public static LogLevel LOG_LEVEL = LogLevel.ERROR;
-        public static int LOG_VERBOSITY = 0;
+        public static LogLevel LOG_LEVEL = LogLevel.ERROR; //Controls Logging level. Info: Outputs loading screen texts. Error: Same as info but includes error messages. Debug: Same as error but includes information from algorithms.
+        public static int LOG_VERBOSITY = 0; //Controls logging verbosity. Higher value means more information is output.
     }
 }
