@@ -9,6 +9,7 @@ namespace Assets.Scripts.Terrain.Pathing {
 
         public WorldPoint worldPoint;
         public Node parent, child;
+        public int children;
 
         private int index;
         public float gCost, hCost;

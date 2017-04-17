@@ -48,10 +48,13 @@ namespace Assets.Scripts.Terrain {
             int searchRadius = 50;
 
             Node highestPoint = FindNodeInRadius(Convert.ToInt32((worldSize / 2) + radius * Math.Sin(angle)), Convert.ToInt32((worldSize / 2) + radius * Math.Cos(angle)), searchRadius, 0.3f, 1f, true);
-            Node lowestPoint = FindNodeInRadius(yEnd, xEnd, searchRadius, 0.05f, 0.06f, false);
+            Node lowestPoint = FindNodeInRadius(yEnd, xEnd, 50, 0.05f, 0.06f, false);
+            int iteration = 0;
             while (lowestPoint == worldMap[yEnd, xEnd] && !Master.worldGenerator.terminate.WaitOne(0)) {
+                if (iteration > 5) break;
                 searchRadius += 50;
                 lowestPoint = FindNodeInRadius(yEnd, xEnd, searchRadius, 0.05f, 0.06f, false);
+                iteration++;
             }
 
             return new Node[2] { highestPoint, lowestPoint };
@@ -95,14 +98,11 @@ namespace Assets.Scripts.Terrain {
         //If the node is an edge/corner node, we need to check if the surrounding node we are looking for is a valid array index. (0 - 1 = -1, which is not a valid array index)
         public List<Node> GetSurroundingNodes(Node node) {
             WorldPoint point = node.worldPoint;
-            Info.log.Send(string.Format("Getting surrounding points for point [x:{0}, y:{1}], height = {2}", point.x, point.y, point.z), 1);
             List<Node> nodes = new List<Node>();
             for (int y = -1; y < 2; y++) {
                 for (int x = -1; x < 2; x++) {
-                    Info.log.Send(string.Format("Checking for point at [x:{0}, y:{1}], null = {2}", point.x + x, point.y + y, (worldMap[point.y + y, point.x + x] == null).ToString()), 1);
                     if (point.y + y >= 0 && point.y + y < worldSize && point.x + x >= 0 && point.x + x < worldSize) {
                         nodes.Add(worldMap[point.y + y, point.x + x]);
-                        Info.log.Send(string.Format("Found point [x:{0}, y:{1}], height = {2}", worldMap[point.y + y, point.x + x].worldPoint.x, worldMap[point.y + y, point.x + x].worldPoint.y, worldMap[point.y + y, point.x + x].worldPoint.z), 1);
                     }
                 }
             }

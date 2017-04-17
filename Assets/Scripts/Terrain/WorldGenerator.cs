@@ -111,7 +111,8 @@ namespace Assets.Scripts.Terrain {
                 Node previousNode = river;
                 river.worldPoint.isRiver = false;
                 float currentMinHeight = currentNode.worldPoint.z;
-                while (currentNode != null && !Master.worldGenerator.terminate.WaitOne(0)) {
+                int carved = 0;
+                while (currentNode != null && !Master.worldGenerator.terminate.WaitOne(0) && carved < river.children) {
                     WorldPoint point = currentNode.worldPoint;
                     int radius = (int) ((1 - point.z) * 10) / 2;
                     float depth = (point.z / 50f);
@@ -134,6 +135,7 @@ namespace Assets.Scripts.Terrain {
                             }
                         }
                     }
+                    carved++;
                     if (currentNode.child == previousNode) {
                         break;
                     } else {

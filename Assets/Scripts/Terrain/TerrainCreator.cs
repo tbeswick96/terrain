@@ -72,9 +72,9 @@ namespace Assets.Scripts.Terrain {
                     float steepnessNormalized = Mathf.Clamp01(steepness * 2);
 
                     float[] splatWeights = new float[terrainData.alphamapLayers];
-                    splatWeights[0] = height > 0.06f ? 1f - steepnessNormalized : 0f;
-                    splatWeights[1] = 1f - ((world.worldMap[x + offsetX, y + offsetY].worldPoint.waterAmount) * 10);
-                    splatWeights[2] = steepnessNormalized;
+                    splatWeights[0] = height > 0.06f ? 1f - (steepnessNormalized * 1.25f) : 0f;
+                    splatWeights[1] = 1f - ((world.worldMap[x + offsetX, y + offsetY].worldPoint.waterAmount) * 50);
+                    splatWeights[2] = steepnessNormalized / 2f;
                     splatWeights[3] = height < 0.065f ? 1f : 0f;
                     splatWeights[4] = world.worldMap[x + offsetX, y + offsetY].worldPoint.isRiver ? 0.8f : 0f;
                     float weightSum = splatWeights.Sum();

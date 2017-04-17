@@ -199,20 +199,20 @@ namespace Assets.Scripts.Terrain {
                 for (int j = 0; j < Info.TILES; j++) {
                     TerrainCreator.UpdateNeighbours(terrains, i, j);
                     terrains[i, j].GetComponent<UnityEngine.Terrain>().Flush();
+                    yield return new WaitForEndOfFrame();
                 }
             }
 
-            ToggleDrawDetails(Info.DRAW_DETAILS);
             StartCoroutine(Finish());
         }
 
         //Once all of the terrains have been created, finish up and give control of the camera back to the player.
         private IEnumerator Finish() {
             SetLoadingText(9);
-            SkyMasterManager.instance.SPEED = 1.5f;
+            SkyMasterManager.instance.SPEED = 1.25f;
             camera.GetComponent<CameraMovement>().enabled = true;
             cornerPanel.SetActive(true);
-
+            ToggleDrawDetails(Info.DRAW_DETAILS);
             while (camera.GetComponent<UnityStandardAssets.ImageEffects.BlurOptimized>().blurSize > 0) {
                 camera.GetComponent<UnityStandardAssets.ImageEffects.BlurOptimized>().blurSize -= 0.045f;
                 yield return new WaitForEndOfFrame();

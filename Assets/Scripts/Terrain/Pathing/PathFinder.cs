@@ -30,7 +30,7 @@ namespace Assets.Scripts.Terrain.Pathing {
                         //Cost based on distance from neighbour node to end node, with a scaled multiplier based on a random value and the inverted z value (height) of the neighbour node.
                         //This results in an increasing displacement of the path the lower the z value is. The creates meanders at lower altitudes.
                         //Increasing the range of the random value increases the size of meanders, but also increases the calculation time.
-                        neighbor.hCost = world.GetDistance(neighbor, endNode) - ((1f - neighbor.worldPoint.z) * (Info.RANDOM.Next(0, 250) - 250));
+                        neighbor.hCost = world.GetDistance(neighbor, endNode) - ((1f - neighbor.worldPoint.z) * (Info.RANDOM.Next(0, 200) - 200));
                         neighbor.parent = currentNode;
                         currentNode.child = neighbor;
                         if (!openSet.Contains(neighbor)) {
@@ -44,19 +44,23 @@ namespace Assets.Scripts.Terrain.Pathing {
             }
 
             return CompilePathFromNodes(startNode, endNode);
+            //return startNode;
         }
 
         //Return the start node of the river with each child node set to the node under it, and each parent node set to the node above it. This ensures the path is complete and correct.
         private static Node CompilePathFromNodes(Node start, Node end) {
-            //Info.log.Send(string.Format("Tracing from [x: {0}, y: {1}] to [x: {2}, y: {3}]", start.worldPoint.x, start.worldPoint.y, end.worldPoint.x, end.worldPoint.y), 1);
+            Info.log.Send(string.Format("Tracing from [x: {0}, y: {1}] to [x: {2}, y: {3}]", start.worldPoint.x, start.worldPoint.y, end.worldPoint.x, end.worldPoint.y), 1);
             Node currentNode = end;
             Node currentParent;
+            int count = 1;
             while (currentNode != start && !Master.worldGenerator.terminate.WaitOne(0)) {
-                //Info.log.Send(string.Format("Tracing through node [x: {0}, y: {1}]. Parent? {2}", currentNode.worldPoint.x, currentNode.worldPoint.y, currentNode.parent != null), 2);
+                Info.log.Send(string.Format("Tracing through node [x: {0}, y: {1}]. Parent? {2}", currentNode.worldPoint.x, currentNode.worldPoint.y, currentNode.parent != null), 1);
                 currentParent = currentNode.parent;
                 currentParent.child = currentNode;
                 currentNode = currentParent;
+                count++;
             }
+            start.children = count;
             return start;
         }
     }
