@@ -69,13 +69,13 @@ namespace Assets.Scripts.Terrain {
                     float height = worldMap[y, x].worldPoint.z;
                     int distance = GetDistance(worldMap[y, x], worldMap[yCentre, xCentre]);
                     if (higher) {
-                        Info.log.Send(string.Format("Testing height {0} > {1} = {2}", height, highestPoint.worldPoint.z, height > highestPoint.worldPoint.z), 1);
+                        Info.log.Send(string.Format("Testing height {0} > {1} = {2}", height, bestPoint.worldPoint.z, height > bestPoint.worldPoint.z), 1);
                         if (height > minHeight && height < maxHeight && height > bestPoint.worldPoint.z && distance < bestDistance) {
                             bestPoint = worldMap[y, x];
                             bestDistance = distance;
                         }
                     } else {
-                        Info.log.Send(string.Format("Testing height {0} < {1} = {2}", height, lowestPoint.worldPoint.z, height < lowestPoint.worldPoint.z), 1);
+                        Info.log.Send(string.Format("Testing height {0} < {1} = {2}", height, bestPoint.worldPoint.z, height < bestPoint.worldPoint.z), 1);
                         if (height > minHeight && height < maxHeight && height < bestPoint.worldPoint.z && distance < bestDistance) {
                             bestPoint = worldMap[y, x];
                             bestDistance = distance;

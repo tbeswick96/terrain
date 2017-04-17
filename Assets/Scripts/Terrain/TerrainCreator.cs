@@ -43,11 +43,11 @@ namespace Assets.Scripts.Terrain {
         //To map a point in the world information array to the correct point in a given tile, an offset is calculated. This offset is then added to the given position of the x,y coord of tile point.
         private static void SetHeights(World world, TerrainData terrainData, int offsetY, int offsetX) {
             float[,] heightMap = new float[terrainData.heightmapWidth, terrainData.heightmapWidth];
-            Info.log.Send(string.Format("Offset values for tile {0}_{1}[x:{2}, y:{3}]. Heightmap size: [x:{4}, y:{5}]", i, j, offsetX, offsetY, heightMap.GetLength(0), heightMap.GetLength(1)), 2);
+            Info.log.Send(string.Format("Offset values for tile [x:{0}, y:{1}]. Heightmap size: [x:{2}, y:{3}]", offsetX, offsetY, heightMap.GetLength(0), heightMap.GetLength(1)), 2);
             for (int y = 0; y < terrainData.heightmapWidth; y++) {
                 for (int x = 0; x < terrainData.heightmapWidth; x++) {
                     heightMap[y, x] = world.worldMap[x + offsetX, y + offsetY].worldPoint.z;
-                    Info.log.Send(string.Format("Heightmap value for tile {0}_{1}[x:{2}, y:{3}] = {4}", i, j, x, y, heightMap[y, x]), 2);
+                    Info.log.Send(string.Format("Heightmap value for tile [x:{0}, y:{1}] = {2}", x, y, heightMap[y, x]), 2);
                 }
             }
             terrainData.SetHeights(0, 0, heightMap);
